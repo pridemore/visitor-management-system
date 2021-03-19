@@ -13,15 +13,11 @@ import javax.persistence.*;
 @Builder
 @Entity
 @Table
-public class Account {
+public class Roles {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private Long id;
-
-    @Column(nullable = false)
-    private String username;
-
-    @Column(nullable = false)
-    private String password;
+    private Long roleid;
+    private String name;
+    private String status;
 }
