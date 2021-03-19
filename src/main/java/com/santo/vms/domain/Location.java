@@ -20,7 +20,7 @@ public class Location {
     @Column
     private Long locationId;
     private String buildingName;
-    private List<Integer> floors;
+    private int floorNo;
     private String departmentId;
     private String status;
 }
