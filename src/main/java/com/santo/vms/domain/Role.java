@@ -13,11 +13,11 @@ import javax.persistence.*;
 @Builder
 @Entity
 @Table
-public class Roles {
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private Long roleid;
+    private Long roleId;
     private String name;
     private String status;
 }
