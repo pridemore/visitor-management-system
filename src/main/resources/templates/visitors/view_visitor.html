@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="main/general.html :: headIncludes"></head>
+<body class="main">
+<div th:insert="main/general.html :: mobileMenu" class="mobile-menu md:hidden"></div>
+<div class="flex">
+
+    <nav th:insert="main/general.html :: navigationMenu" class="side-nav"></nav>
+
+    <div class="content">
+        <div th:insert="main/general.html :: topBar" class="top-bar">
+            <div th:insert="main/general.html :: breadCrumbs" class="-intro-x breadcrumb mr-auto hidden sm:flex"></div>
+            <div th:insert="main/general.html :: search" class="intro-x relative mr-3 sm:mr-6"></div>
+        </div>
+
+
+        <h2 class="intro-y text-lg font-medium mt-10">
+            Visitor Details
+        </h2>
+        <div class="grid grid-cols-12 gap-6 mt-5">
+            <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
+                <a th:href="@{/visitors/add}" class="btn btn-primary shadow-md mr-2">Add New Visitor</a>
+                <a th:href="@{/visitors/view}" class="btn btn-primary shadow-md mr-2">View Visitors</a>
+                <a th:href="@{/visitors/check-in}" class="btn btn-primary shadow-md mr-2">Check In</a>
+                <a th:href="@{/visitors/check-out}" class="btn btn-primary shadow-md mr-2">Check Out</a>
+                <div class="dropdown">
+                    <button class="dropdown-toggle btn px-2 box text-gray-700 dark:text-gray-300" aria-expanded="false">
+                        <span class="w-5 h-5 flex items-center justify-center"> <i class="w-4 h-4" data-feather="plus"></i> </span>
+                    </button>
+                    <div class="dropdown-menu w-40">
+                        <div class="dropdown-menu__content box dark:bg-dark-1 p-2">
+                            <a href="" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"> <i data-feather="users" class="w-4 h-4 mr-2"></i> Add Group </a>
+                            <a href="" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"> <i data-feather="message-circle" class="w-4 h-4 mr-2"></i> Send Message </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- BEGIN: Users Layout -->
+            <div class="lg:col-span-2">
+                <div class="box">
+                </div>
+            </div>
+            <div class="intro-y col-span-12 md:col-span-6 lg:col-span-8">
+                <div class="box">
+                    <div class="flex items-start px-5 pt-5">
+                        <div class="w-full flex flex-col lg:flex-row items-center">
+                            <div class="w-16 h-16 image-fit">
+                                <img alt="vms" class="rounded-full" th:src="@{/images/profile-8.jpg}">
+                            </div>
+                            <div class="lg:ml-4 text-center lg:text-left mt-3 lg:mt-0">
+                                <a href="" class="font-medium" th:text="${visitor.getName()} +' '+ ${visitor.getSurname()}"></a>
+                                <div class="text-gray-600 text-xs mt-0.5" th:text="${visitor.getNationalId()}"></div>
+                            </div>
+                        </div>
+                        <div class="absolute right-0 top-0 mr-5 mt-3 dropdown">
+                            <a class="dropdown-toggle w-5 h-5 block" href="javascript:;" aria-expanded="false"> <i data-feather="more-horizontal" class="w-5 h-5 text-gray-600 dark:text-gray-300"></i> </a>
+                            <div class="dropdown-menu w-40">
+                                <div class="dropdown-menu__content box dark:bg-dark-1 p-2">
+                                    <a href="" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"> <i data-feather="edit-2" class="w-4 h-4 mr-2"></i> Edit </a>
+                                    <a href="" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"> <i data-feather="trash" class="w-4 h-4 mr-2"></i> Delete </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center lg:text-left p-5">
+                        <div>
+                            <div class="overflow-x-auto">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Name</th>
+                                        <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">National ID</th>
+                                        <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Gender</th>
+                                        <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Phone Number</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="border-b dark:border-dark-5" th:text="${visitor.getName()} + ' ' + ${visitor.getSurname()}"></td>
+                                        <td class="border-b dark:border-dark-5" th:text="${visitor.getNationalId()}"></td>
+                                        <td class="border-b dark:border-dark-5" th:text="${visitor.getGender()}"></td>
+                                        <td class="border-b dark:border-dark-5" th:text="${visitor.getPhoneNo()}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-center lg:justify-start text-gray-600 mt-5" th:text="${visitor.getEmail()}"> <i data-feather="mail" class="w-3 h-3 mr-2"></i>  </div>
+                        <div class="flex items-center justify-center lg:justify-start text-gray-600 mt-1" th:text="${visitor.getName()} +' '+ ${visitor.getSurname()}"> <i data-feather="instagram" class="w-3 h-3 mr-2"></i> </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END: Users Layout -->
+        </div>
+
+    </div>
+</div>
+<div data-url="dark-theme-coming-soon.html" class="dark-mode-switcher cursor-pointer shadow-md fixed bottom-0 right-0 box dark:bg-dark-2 border rounded-full w-40 h-12 flex items-center justify-center z-50 mb-10 mr-10">
+    <div class="mr-4 text-gray-700 dark:text-gray-300">Dark Mode</div>
+    <div class="dark-mode-switcher__toggle border"></div>
+</div>
+<script>
+    // Add active class to the menu item selected
+    document.getElementById("visitor-menu").classList.add("side-menu--active");
+    //document.getElementById("dashboard-sub-menu").classList.add("side-menu--active");
+</script>
+<script th:src="@{/js/app.js}"></script>
+
+</body>
+</html>

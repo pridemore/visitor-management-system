@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="main/general.html :: headIncludes"></head>
+<body class="main">
+<div th:insert="main/general.html :: mobileMenu" class="mobile-menu md:hidden"></div>
+<div class="flex">
+
+    <nav th:insert="main/general.html :: navigationMenu" class="side-nav"></nav>
+
+    <div class="content">
+        <div th:insert="main/general.html :: topBar" class="top-bar">
+            <div th:insert="main/general.html :: breadCrumbs" class="-intro-x breadcrumb mr-auto hidden sm:flex"></div>
+            <div th:insert="main/general.html :: search" class="intro-x relative mr-3 sm:mr-6"></div>
+        </div>
+
+        <div class="intro-y flex items-center mt-8">
+            <h2 class="text-lg font-medium mr-auto">
+                Employee Details Form
+            </h2>
+        </div>
+        <div class="col-span-4 lg:col-span-4">
+            <div class="row">
+
+            </div>
+        </div>
+        <div class="grid grid-cols-12 gap-8 mt-5">
+            <div class="intro-y col-span-12 lg:col-span-8">
+                <!-- BEGIN: Form Validation -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div th:if="${message}">
+                            <h5 th:text="${message}"/>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div th:if="${error}">
+                            <h5 class="text-danger" th:text="${error}"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="intro-y box">
+   <!--                 <div class="flex flex-col sm:flex-row items-center p-5 border-b border-gray-200 dark:border-dark-5">
+                        <h2 class="font-medium text-base mr-auto">
+                            Please fill in the below details
+                        </h2>
+                        <div class="w-full sm:w-auto flex items-center sm:ml-auto mt-3 sm:mt-0">
+                            <label class="form-check-label ml-0 sm:ml-2" for="show-example-1">Show example code</label>
+                            <input id="show-example-1" data-target="#form-validation" class="show-code form-check-switch mr-0 ml-3" type="checkbox">
+                        </div>
+                    </div>-->
+                    <div id="form-validation" class="p-5">
+                        <div class="preview">
+                            <!-- BEGIN: Validation Form -->
+                            <form th:action="@{/employees/add}" th:method="post" method="post">
+                                <div class="input-form">
+                                    <label for="validation-form-first-name" class="form-label w-full flex flex-col sm:flex-row"> Name <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600">Required, at least 3 characters</span> </label>
+                                    <input id="validation-form-first-name" type="text" name="firstName" class="form-control" placeholder="Name" minlength="3" required>
+                                </div>
+                                <div class="input-form">
+                                    <label for="validation-form-surname" class="form-label w-full flex flex-col sm:flex-row"> Surname <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600">Required, at least 3 characters</span> </label>
+                                    <input id="validation-form-surname" type="text" name="surname" class="form-control" placeholder="Surname" minlength="3" required>
+                                </div>
+                                <div class="input-form">
+                                    <label for="validation-form-title" class="form-label w-full flex flex-col sm:flex-row"> Designation <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600">Required, at least 3 characters</span> </label>
+                                    <input id="validation-form-title" type="text" name="designation" class="form-control" placeholder="Designation" minlength="3" required>
+                                </div>
+                                <div class="input-form mt-3">
+                                    <label for="validation-form-2" class="form-label w-full flex flex-col sm:flex-row"> Email <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600">Required, email address format</span> </label>
+                                    <input id="validation-form-2" type="email" name="email" class="form-control" placeholder="example@gmail.com" required>
+                                </div>
+                                 <div class="input-form">
+                                    <label for="validation-form-employee-id" class="form-label w-full flex flex-col sm:flex-row"> Employee Code <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600">Required, at least 3 characters</span> </label>
+                                    <input id="validation-form-employee-id" type="text" name="employeeNo" class="form-control" placeholder="Employee Code" minlength="3" required>
+                                </div>
+                                <div class="input-form">
+                                    <label for="validation-form-national-id" class="form-label w-full flex flex-col sm:flex-row"> National ID <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600">Required, at least 3 characters</span> </label>
+                                    <input id="validation-form-national-id" type="text" name="nationalId" class="form-control" placeholder="National ID" minlength="8" required>
+                                </div>
+                                <div> <label>Gender</label>
+                                    <div class="mt-2">
+                                        <select class="tail-select w-full" name="gender" id="gender">
+                                        <option value="" disabled th:disabled="disabled">Select Gender</option>
+                                        <option value="MALE">MALE</option>
+                                        <option value="FEMALE">FEMALE</option>
+
+                                    </select> </div>
+                                </div>
+                                <div id="input-group-phone" class="input-group-text">+263</div>
+                                <input type="text" name="phoneNo" class="form-control" placeholder="Phone number" aria-label="Email" aria-describedby="input-group-phone">
+
+
+                                <button type="submit" class="btn btn-primary mt-5">Submit</button>
+                            </form>
+                            <!-- END: Validation Form -->
+                            <!-- BEGIN: Success Notification Content -->
+                            <div id="success-notification-content" class="toastify-content hidden flex" >
+                                <i class="text-theme-9" data-feather="check-circle"></i>
+                                <div class="ml-4 mr-4">
+                                    <div class="font-medium">Registration success!</div>
+                                    <div class="text-gray-600 mt-1"> Employee has been registered. </div>
+                                </div>
+                            </div>
+                            <!-- END: Success Notification Content -->
+                            <!-- BEGIN: Failed Notification Content -->
+                            <div id="failed-notification-content" class="toastify-content hidden flex" >
+                                <i class="text-theme-6" data-feather="x-circle"></i>
+                                <div class="ml-4 mr-4">
+                                    <div class="font-medium">Registration failed!</div>
+                                    <div class="text-gray-600 mt-1"> Please check the errors on the form. </div>
+                                </div>
+                            </div>
+                            <!-- END: Failed Notification Content -->
+                        </div>
+                    </div>
+                </div>
+                <!-- END: Form Validation -->
+            </div>
+        </div>
+    </div>
+</div>
+<div data-url="dark-theme-coming-soon.html" class="dark-mode-switcher cursor-pointer shadow-md fixed bottom-0 right-0 box dark:bg-dark-2 border rounded-full w-40 h-12 flex items-center justify-center z-50 mb-10 mr-10">
+    <div class="mr-4 text-gray-700 dark:text-gray-300">Dark Mode</div>
+    <div class="dark-mode-switcher__toggle border"></div>
+</div>
+<script>
+    // Add active class to the menu item selected
+    document.getElementById("employee-menu").classList.add("side-menu--active");
+    document.getElementById("employee-add-menu").classList.add("side-menu--active");
+</script>
+<script th:src="@{/js/app.js}"></script>
+
+</body>
+</html>

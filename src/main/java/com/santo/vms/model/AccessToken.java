@@ -1,4 +1,4 @@
-package com.santo.vms.domain;
+package com.santo.vms.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

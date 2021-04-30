@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="main/general.html :: headIncludes"></head>
+<body class="main">
+<div th:insert="main/general.html :: mobileMenu" class="mobile-menu md:hidden"></div>
+<div class="flex">
+
+    <nav th:insert="main/general.html :: navigationMenu" class="side-nav"></nav>
+
+    <div class="content">
+        <div th:insert="main/general.html :: topBar" class="top-bar">
+            <div th:insert="main/general.html :: breadCrumbs" class="-intro-x breadcrumb mr-auto hidden sm:flex"></div>
+            <div th:insert="main/general.html :: search" class="intro-x relative mr-3 sm:mr-6"></div>
+        </div>
+
+
+        <div class="intro-y flex items-center mt-8">
+            <h2 class="text-lg font-medium mr-auto">
+                Department Details Form
+            </h2>
+        </div>
+        <div class="col-span-4 lg:col-span-4">
+            <div class="row">
+
+            </div>
+        </div>
+        <div class="grid grid-cols-12 gap-8 mt-5">
+            <div class="intro-y col-span-12 lg:col-span-8">
+                <!-- BEGIN: Form Validation -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div th:if="${message}">
+                            <h5 th:text="${message}"/>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div th:if="${error}">
+                            <h5 class="text-danger" th:text="${error}"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="intro-y box">
+                    <div id="form-validation" class="p-5">
+                        <div class="preview">
+                            <!-- BEGIN: Validation Form -->
+                            <form th:action="@{/departments/add}" th:method="post" method="post">
+                                <div class="input-form">
+                                    <label for="validation-form-code" class="form-label w-full flex flex-col sm:flex-row">Department Code <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600">Required, at least 3 characters</span> </label>
+                                    <input id="validation-form-code" type="text" name="code" class="form-control" placeholder="Code" minlength="3" required>
+                                </div>      <div class="input-form">
+                                    <label for="validation-form-name" class="form-label w-full flex flex-col sm:flex-row">Department Name <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600">Required, at least 3 characters</span> </label>
+                                    <input id="validation-form-name" type="text" name="name" class="form-control" placeholder="Name" minlength="3" required>
+                                </div>
+                                <div class="input-form">
+                                    <label for="validation-form-building-name" class="form-label w-full flex flex-col sm:flex-row"> Building Name <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600">Optional</span> </label>
+                                    <input id="validation-form-building-name" type="text" name="buildingName" class="form-control" placeholder="Building Name" minlength="3">
+                                </div>
+                                <div class="input-form">
+                                    <label for="validation-form-level" class="form-label w-full flex flex-col sm:flex-row"> Floor Level <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600">Optional</span> </label>
+                                    <input id="validation-form-level" type="text" name="floorLevel" class="form-control" placeholder="Floor Level" minlength="3">
+                                </div>
+
+                                <button type="submit" class="btn btn-primary mt-5">Submit</button>
+                            </form>
+                            <!-- END: Validation Form -->
+                            <!-- BEGIN: Success Notification Content -->
+                            <div id="success-notification-content" class="toastify-content hidden flex" >
+                                <i class="text-theme-9" data-feather="check-circle"></i>
+                                <div class="ml-4 mr-4">
+                                    <div class="font-medium">Registration success!</div>
+                                    <div class="text-gray-600 mt-1"> Department has been registered. </div>
+                                </div>
+                            </div>
+                            <!-- END: Success Notification Content -->
+                            <!-- BEGIN: Failed Notification Content -->
+                            <div id="failed-notification-content" class="toastify-content hidden flex" >
+                                <i class="text-theme-6" data-feather="x-circle"></i>
+                                <div class="ml-4 mr-4">
+                                    <div class="font-medium">Registration failed!</div>
+                                    <div class="text-gray-600 mt-1"> Please check the errors on the form. </div>
+                                </div>
+                            </div>
+                            <!-- END: Failed Notification Content -->
+                        </div>
+                    </div>
+                </div>
+                <!-- END: Form Validation -->
+            </div>
+        </div>
+    </div>
+</div>
+<div data-url="dark-theme-coming-soon.html" class="dark-mode-switcher cursor-pointer shadow-md fixed bottom-0 right-0 box dark:bg-dark-2 border rounded-full w-40 h-12 flex items-center justify-center z-50 mb-10 mr-10">
+    <div class="mr-4 text-gray-700 dark:text-gray-300">Dark Mode</div>
+    <div class="dark-mode-switcher__toggle border"></div>
+</div>
+<script>
+    // Add active class to the menu item selected
+    document.getElementById("department-menu").classList.add("side-menu--active");
+    document.getElementById("department-add-menu").classList.add("side-menu--active");
+</script>
+<script th:src="@{/js/app.js}"></script>
+
+</body>
+</html>

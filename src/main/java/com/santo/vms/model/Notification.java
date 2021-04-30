@@ -1,4 +1,4 @@
-package com.santo.vms.domain;
+package com.santo.vms.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,15 +13,12 @@ import javax.persistence.*;
 @Builder
 @Entity
 @Table
-public class Account {
+public class Notification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private Long id;
-
-    @Column(nullable = false)
-    private String username;
-
-    @Column(nullable = false)
-    private String password;
+    private Long notificationId;
+    private String message;
+    private String visitId;
+    private String status;
 }

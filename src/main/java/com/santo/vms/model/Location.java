@@ -1,4 +1,4 @@
-package com.santo.vms.domain;
+package com.santo.vms.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
@@ -14,11 +13,13 @@ import java.time.LocalDate;
 @Builder
 @Entity
 @Table
-public class Department {
+public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private Long departmentId;
-    private String name;
+    private Long id;
+    private String buildingName;
+    private int floorNo;
+    private String departmentId;
     private String status;
 }

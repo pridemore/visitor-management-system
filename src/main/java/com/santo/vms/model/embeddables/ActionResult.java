@@ -1,4 +1,4 @@
-package com.santo.vms.domain.embeddables;
+package com.santo.vms.model.embeddables;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;

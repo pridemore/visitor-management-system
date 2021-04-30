@@ -1,4 +1,4 @@
-package com.santo.vms.domain.embeddables;
+package com.santo.vms.model.embeddables;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="main/general.html :: headIncludes"></head>
+<body class="main">
+    <div th:insert="main/general.html :: mobileMenu" class="mobile-menu md:hidden"></div>
+    <div class="flex">
+
+        <nav th:insert="main/general.html :: navigationMenu" class="side-nav"></nav>
+
+        <div class="content">
+            <div th:insert="main/general.html :: topBar" class="top-bar">
+                <div th:insert="main/general.html :: breadCrumbs" class="-intro-x breadcrumb mr-auto hidden sm:flex"></div>
+                <div th:insert="main/general.html :: search" class="intro-x relative mr-3 sm:mr-6"></div>
+            </div>
+
+
+            <!--
+            ###=================================================================================================###
+                            //    _____       _           _ _
+            //   |  __ \     | |         | | |
+            //   | |__) |   _| |_    __ _| | |  _   _  ___  _   _ _ __   _ __   __ _  __ _  ___
+            //   |  ___/ | | | __|  / _` | | | | | | |/ _ \| | | | '__| | '_ \ / _` |/ _` |/ _ \
+            //   | |   | |_| | |_  | (_| | | | | |_| | (_) | |_| | |    | |_) | (_| | (_| |  __/
+            //   |_|    \__,_|\__|  \__,_|_|_|  \__, |\___/ \__,_|_|    | .__/ \__,_|\__, |\___|
+            //                                   __/ |                  | |           __/ |
+            //                    _             |___/ _         _   _   |_|          |___/      _   _
+            //                   | |           | |   (_)       | | | |   (_)                   | | (_)
+            //     ___ ___  _ __ | |_ ___ _ __ | |_   _ _ __   | |_| |__  _ ___   ___  ___  ___| |_ _  ___  _ __
+            //    / __/ _ \| '_ \| __/ _ \ '_ \| __| | | '_ \  | __| '_ \| / __| / __|/ _ \/ __| __| |/ _ \| '_ \
+            //   | (_| (_) | | | | ||  __/ | | | |_  | | | | | | |_| | | | \__ \ \__ \  __/ (__| |_| | (_) | | | |
+            //    \___\___/|_| |_|\__\___|_| |_|\__| |_|_| |_|  \__|_| |_|_|___/ |___/\___|\___|\__|_|\___/|_| |_|
+            //
+            //
+            ###=================================================================================================###
+                -->
+
+        </div>
+    </div>
+    <div data-url="dark-theme-coming-soon.html" class="dark-mode-switcher cursor-pointer shadow-md fixed bottom-0 right-0 box dark:bg-dark-2 border rounded-full w-40 h-12 flex items-center justify-center z-50 mb-10 mr-10">
+        <div class="mr-4 text-gray-700 dark:text-gray-300">Dark Mode</div>
+        <div class="dark-mode-switcher__toggle border"></div>
+    </div>
+    <script>
+        // Add active class to the menu item selected
+        document.getElementById("dashboard-menu").classList.add("side-menu--active");
+        document.getElementById("dashboard-sub-menu").classList.add("side-menu--active");
+    </script>
+<script th:src="@{/js/app.js}"></script>
+
+</body>
+</html>

@@ -1,4 +1,4 @@
-package com.santo.vms.domain;
+package com.santo.vms.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,11 +13,15 @@ import javax.persistence.*;
 @Builder
 @Entity
 @Table
-public class Role {
+public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private Long roleId;
-    private String name;
-    private String status;
+    private Long id;
+
+    @Column(nullable = false)
+    private String username;
+
+    @Column(nullable = false)
+    private String password;
 }

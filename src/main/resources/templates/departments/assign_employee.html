@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="main/general.html :: headIncludes"></head>
+<body class="main">
+<div th:insert="main/general.html :: mobileMenu" class="mobile-menu md:hidden"></div>
+<div class="flex">
+
+    <nav th:insert="main/general.html :: navigationMenu" class="side-nav"></nav>
+
+    <div class="content">
+        <div th:insert="main/general.html :: topBar" class="top-bar">
+            <div th:insert="main/general.html :: breadCrumbs" class="-intro-x breadcrumb mr-auto hidden sm:flex"></div>
+            <div th:insert="main/general.html :: search" class="intro-x relative mr-3 sm:mr-6"></div>
+        </div>
+
+
+        <div class="intro-y flex items-center mt-8">
+            <h2 class="text-lg font-medium mr-auto">
+                Assign Employee to <span th:text="${department.getName()}"></span>
+            </h2>
+        </div>
+        <div class="grid grid-cols-12 gap-6 mt-5">
+            <div class="intro-y col-span-12 lg:col-span-6">
+                <!-- BEGIN: Multi Select -->
+                <div class="intro-y box mt-5">
+                    <div class="flex flex-col sm:flex-row items-center p-5 border-b border-gray-200 dark:border-dark-5">
+                        <h2 class="font-medium text-base mr-auto">
+                            Select Employees
+                        </h2>
+                    </div>
+                    <div id="multi-select" class="p-5">
+                        <form th:action="@{/departments/assign}" th:method="post" th:object="${dto}" method="post">
+                        <div class="preview">
+                            <select id="employees" name="employees" th:field="*{employees}" data-placeholder="Select employees" data-search="true" class="tail-select w-full" multiple>
+                                <option th:each="departmentEmployee: ${employees}"
+                                        th:value="${departmentEmployee.getId()}"
+                                        th:text="'(' +${departmentEmployee.getEmployeeNo()} +') '+ ${departmentEmployee.getFirstName()} + ${departmentEmployee.getSurname()} ">
+
+                                </option>
+
+                            </select>
+                            <input id="department" type="hidden" name="department" class="form-control" th:value="${department.getId()}" >
+                        </div>
+                            <button id="employee-assignment-submission" type="submit" class="btn btn-primary mt-5">Submit</button>
+                        </form>
+
+                    </div>
+                </div>
+                <!-- END: Multi Select -->
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<div data-url="dark-theme-coming-soon.html" class="dark-mode-switcher cursor-pointer shadow-md fixed bottom-0 right-0 box dark:bg-dark-2 border rounded-full w-40 h-12 flex items-center justify-center z-50 mb-10 mr-10">
+    <div class="mr-4 text-gray-700 dark:text-gray-300">Dark Mode</div>
+    <div class="dark-mode-switcher__toggle border"></div>
+</div>
+<script>
+    // Add active class to the menu item selected
+    document.getElementById("dashboard-menu").classList.add("side-menu--active");
+    //document.getElementById("dashboard-sub-menu").classList.add("side-menu--active");
+</script>
+<script>
+    document.getElementById('employee-assignment-submission').onclick = function() {
+        var checked = document.querySelectorAll('#employees :checked');
+        var selected = [...checked].map(option => option.value);
+        console.log("Selected Values: " + selected);
+        alert(selected);
+    }
+</script>
+<script th:src="@{/js/app.js}"></script>
+
+</body>
+</html>

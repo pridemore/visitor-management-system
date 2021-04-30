@@ -1,5 +1,6 @@
-package com.santo.vms.domain;
+package com.santo.vms.model;
 
+import com.santo.vms.utilities.enums.EntityStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.OffsetDateTime;
 
 @Data
 @NoArgsConstructor
@@ -14,11 +16,9 @@ import java.time.LocalDate;
 @Builder
 @Entity
 @Table
-public class Guest {
+public class Visitor {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
-    private Long guestId;
+    private String id;
     private String name;
     private String surname;
     private String nationalId;
@@ -27,4 +27,14 @@ public class Guest {
     private String phoneNo;
     private String email;
     private String status;
+    private String signature;
+
+    @Version
+    @Column
+    protected Long entityVersion;
+
+    @Enumerated(EnumType.STRING)
+    private EntityStatus entityStatus;
+
+    private OffsetDateTime dateCreated;
 }
