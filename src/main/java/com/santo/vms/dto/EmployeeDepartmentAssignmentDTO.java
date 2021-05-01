@@ -10,4 +10,12 @@ import java.util.List;
 public class EmployeeDepartmentAssignmentDTO {
     private List<Employee> employees;
     private Department department;
+
+    @Override
+    public String toString() {
+        return "EmployeeDepartmentAssignmentDTO{" +
+                "employees=" + employees +
+                ", department=" + department +
+                '}';
+    }
 }

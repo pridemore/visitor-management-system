@@ -1,10 +1,198 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="main/general.html :: headIncludes"></head>
+<body class="main">
+<div th:insert="main/general.html :: mobileMenu" class="mobile-menu md:hidden"></div>
+<div class="flex">
+
+    <nav th:insert="main/general.html :: navigationMenu" class="side-nav"></nav>
+
+    <div class="content">
+        <div th:insert="main/general.html :: topBar" class="top-bar">
+            <div th:insert="main/general.html :: breadCrumbs" class="-intro-x breadcrumb mr-auto hidden sm:flex"></div>
+            <div th:insert="main/general.html :: search" class="intro-x relative mr-3 sm:mr-6"></div>
+        </div>
+
+
+        <div class="intro-y flex items-center mt-8">
+            <h2 class="text-lg font-medium mr-auto">
+                Visitor Check-In Form
+            </h2>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div th:if="${message}">
+                    <h5 th:text="${message}"/>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div th:if="${error}">
+                    <h5 class="text-danger" th:text="${error}"/>
+                </div>
+            </div>
+        </div>
+        <form th:action="@{/visitors/check-in}" th:method="post" method="post">
+        <div class="grid grid-cols-12 gap-6 mt-5">
+            <div class="intro-y col-span-12 lg:col-span-6">
+                <!-- BEGIN: Input Group -->
+
+                    <div class="intro-y box">
+                        <div class="flex flex-col sm:flex-row items-center p-5 border-b border-gray-200 dark:border-dark-5">
+                            <h2 class="font-medium text-base mr-auto">
+                                Fill in the below details
+                            </h2>
+                        </div>
+                        <div id="input-group-2" class="p-5">
+                            <div class="preview">
+                                <div class="flex">
+                                    <div class="z-30 rounded-l w-10 flex items-center justify-center bg-gray-100 border text-gray-600 dark:bg-dark-1 dark:border-dark-4 -mr-1">
+                                        @
+                                    </div>
+                                    <select id="employee" name="employee" data-placeholder="Select Host/Employee"
+                                            data-search="true" class="tail-select w-full" required>
+                                        <option disabled selected>Select Host/Employee</option>
+                                        <option th:each="departmentEmployee: ${employees}"
+                                                th:value="${departmentEmployee.getId()}"
+                                                th:text="'(' +${departmentEmployee.getDepartment().getName()} +') '+ ${departmentEmployee.getFirstName()} + ${departmentEmployee.getSurname()} ">
+
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="input-group" class="p-5">
+                            <div class="preview">
+                                <div class="flex">
+                                    <div class="z-30 rounded-l w-10 flex items-center justify-center bg-gray-100 border text-gray-600 dark:bg-dark-1 dark:border-dark-4 -mr-1">
+                                        @
+                                    </div>
+                                    <select id="visitor" name="visitor" data-placeholder="Select Visitor"
+                                            data-search="true"
+                                            class="tail-select w-full">
+                                        <option disabled selected>Select Visitor</option>
+                                        <option th:each="visitor: ${visitors}"
+                                                th:value="${visitor.getId()}"
+                                                th:text="'(' +${visitor.getNationalId()} +') '+ ${visitor.getName()} + ${visitor.getSurname()} ">
+
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="input-group-3" class="p-5">
+                            <label for="validation-form-visit-purpose"
+                                   class="form-label w-full flex flex-col sm:flex-row">
+                                Purpose <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600">Required</span>
+                            </label>
+                            <input id="validation-form-visit-purpose" type="text" name="purpose" class="form-control"
+                                   placeholder="Purpose of visit" minlength="5">
+                        </div>
+
+
+
+
+                        <div id="input-group-11" class="p-5">
+                            <label for="validation-form-accompaniedBy"
+                                   class="form-label w-full flex flex-col sm:flex-row">
+                                Number of Accompanies <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600">Optional</span>
+                            </label>
+                            <input id="validation-form-accompaniedBy" type="number" name="accompaniedBy"
+                                   class="form-control"
+                                   placeholder="0" minlength="0" th:default="0">
+                        </div>
+                        <!-- END: Input Group -->
+                    </div>
+
+
+            </div>
+            <div class="intro-y col-span-12 lg:col-span-6">
+                <div class="intro-y box">
+                    <div class="flex flex-col sm:flex-row items-center p-5 border-b border-gray-200 dark:border-dark-5">
+                        <h2 class="font-medium text-base mr-auto">
+                            Visit configuration details
+                        </h2>
+                    </div>
+                    <div id="input-group-6" class="p-5">
+                        <div class="relative w-56 mx-auto">
+                            <div class="absolute rounded-l w-10 h-full flex items-center justify-center bg-gray-100 border text-gray-600 dark:bg-dark-1 dark:border-dark-4">
+                                <i data-feather="calendar" class="w-4 h-4"></i></div>
+                            <input data-date-format='yy-mm-dd' name="visitDate" type="date" class="form-control pl-12"
+                                   data-single-mode="true" required>
+
+                        </div>
+                        <div class="relative w-56 mx-auto">
+                            <div class="absolute rounded-l w-10 h-full flex items-center justify-center bg-gray-100 border text-gray-600 dark:bg-dark-1 dark:border-dark-4">
+                                <i data-feather="calendar" class="w-4 h-4"></i></div>
+                            <input data-date-format='yy-mm-dd' name="visitUntil" type="date" class="form-control pl-12"
+                                   data-single-mode="true" required>
+                        </div>
+                    </div>
+                    <div id="input-group-7" class="p-5">
+                        <div class="relative w-56 mx-auto">
+                            <div class="absolute rounded-l w-10 h-full flex items-center justify-center bg-gray-100 border text-gray-600 dark:bg-dark-1 dark:border-dark-4">
+                                <i data-feather="calendar" class="w-4 h-4"></i></div>
+                            <input name="startTime" type="time" class="form-control pl-12" data-single-mode="true">
+
+                        </div>
+                    </div>
+                    <div id="input-group-8" class="p-5">
+                        <div class="relative w-56 mx-auto">
+                            <div class="absolute rounded-l w-10 h-full flex items-center justify-center bg-gray-100 border text-gray-600 dark:bg-dark-1 dark:border-dark-4">
+                                <i data-feather="calendar" class="w-4 h-4"></i></div>
+                            <input name="endTime" type="time" class="form-control pl-12" data-single-mode="true">
+
+                        </div>
+                    </div>
+                    <div id="input-group-9" class="p-5">
+                        <div class="mt-3"><label>Repeat Visit</label>
+                            <div class="mt-2">
+                                <div class="form-check"><input name="isRepeatVisit" id="isRepeatVisit"
+                                                               class="form-check-switch" type="checkbox"> <label
+                                        class="form-check-label" for="isRepeatVisit">Repeat Visit if visitor
+                                    will come continuosly for specified period</label></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="input-group-10" class="p-5">
+                        <select id="repeatDays" name="repeatDays"
+                                data-placeholder="Select repeat days" data-search="true"
+                                class="tail-select w-full" multiple>
+                            <option value="Mon">Mon</option>
+                            <option value="Tue">Tue</option>
+                            <option value="Wed">Wed</option>
+                            <option value="Thu">Thu</option>
+                            <option value="Fri">Fri</option>
+                            <option value="Sat">Sat</option>
+                            <option value="Sun">Sun</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <button id="visitor-check-in-submission" type="submit" class="btn btn-primary mt-5">Submit</button>
+        </form>
+    </div>
+    <div data-url="dark-theme-coming-soon.html"
+         class="dark-mode-switcher cursor-pointer shadow-md fixed bottom-0 right-0 box dark:bg-dark-2 border rounded-full w-40 h-12 flex items-center justify-center z-50 mb-10 mr-10">
+        <div class="mr-4 text-gray-700 dark:text-gray-300">Dark Mode</div>
+        <div class="dark-mode-switcher__toggle border"></div>
+    </div>
+    <script>
+        // Add active class to the menu item selected
+        document.getElementById("visitor-menu").classList.add("side-menu--active");
+        //document.getElementById("dashboard-sub-menu").classList.add("side-menu--active");
+    </script>
+    <script>
+        document.getElementById('visitor-check-in-submission').onclick = function() {
+            var checked = document.querySelectorAll('#repeatDays :checked');
+            var selected = [...checked].map(option => option.value);
+            console.log("Selected Values: " + selected);
+            alert(selected);
+
+        }
+    </script>
+    <script th:src="@{/js/app.js}"></script>
 
 </body>
 </html>

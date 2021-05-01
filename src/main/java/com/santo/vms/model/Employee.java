@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import org.apache.lucene.analysis.core.LowerCaseFilterFactory;
 import org.apache.lucene.analysis.snowball.SnowballPorterFilterFactory;
 import org.apache.lucene.analysis.standard.StandardTokenizerFactory;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.TokenFilterDef;
 import org.hibernate.search.annotations.TokenizerDef;
@@ -33,26 +34,60 @@ public class Employee {
     @Id
     @Column
     private String id;
+
     private String firstName;
+
     private String surname;
+
     private String employeeNo;
+
     private String nationalId;
-    //private String departmentId;
+
     private LocalDate dob;
+
     @Enumerated(EnumType.STRING)
     private Gender gender;
+
     private String locationId;
+
     private String phoneNo;
+
     private String email;
+
     private String status;
+
     private String designation;
+
     @ManyToOne
     private Department department;
+
+    @OneToOne
+    private VisitLog visit;
 
     @Version
     @Column
     protected Long entityVersion;
+
     @Enumerated(EnumType.STRING)
     private EntityStatus entityStatus;
+
     private OffsetDateTime dateCreated;
+
+    @UpdateTimestamp
+    protected OffsetDateTime lastUpdated;
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id='" + id + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", surname='" + surname + '\'' +
+                ", employeeNo='" + employeeNo + '\'' +
+                ", nationalId='" + nationalId + '\'' +
+                ", gender=" + gender +
+                ", locationId='" + locationId + '\'' +
+                ", phoneNo='" + phoneNo + '\'' +
+                ", entityStatus=" + entityStatus +
+                '}';
+    }
 }

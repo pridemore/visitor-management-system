@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="main/general.html :: headIncludes"></head>
+<body class="main">
+<div th:insert="main/general.html :: mobileMenu" class="mobile-menu md:hidden"></div>
+<div class="flex">
+
+    <nav th:insert="main/general.html :: navigationMenu" class="side-nav"></nav>
+
+    <div class="content">
+        <div th:insert="main/general.html :: topBar" class="top-bar">
+            <div th:insert="main/general.html :: breadCrumbs" class="-intro-x breadcrumb mr-auto hidden sm:flex"></div>
+            <div th:insert="main/general.html :: search" class="intro-x relative mr-3 sm:mr-6"></div>
+        </div>
+
+
+        <div class="intro-y flex items-center mt-8">
+            <h2 class="text-lg font-medium mr-auto">
+                Pending Check-In Details
+            </h2>
+        </div>
+        <!-- BEGIN: Profile Info -->
+        <div class="intro-y box px-5 pt-5 mt-5">
+            <div class="flex flex-col lg:flex-row border-b border-gray-200 dark:border-dark-5 pb-5 -mx-5">
+                <div class="flex flex-1 px-5 items-center justify-center lg:justify-start">
+                    <div class="w-20 h-20 sm:w-24 sm:h-24 flex-none lg:w-32 lg:h-32 image-fit relative">
+                        <img alt="vms" class="rounded-full" th:src="@{/images/profile-2.jpg}">
+                    </div>
+                    <div class="ml-5">
+                        <div class="w-24 sm:w-40 truncate sm:whitespace-normal font-medium text-lg"
+                             th:text="${visitLog.getEmployee().getFirstName()} + ' ' + ${visitLog.getEmployee().getSurname()}"></div>
+                        <div class="text-gray-600" th:text="${visitLog.getEmployee().getDesignation()}"></div>
+                    </div>
+                </div>
+                <div class="mt-6 lg:mt-0 flex-1 dark:text-gray-300 px-5 border-l border-r border-gray-200 dark:border-dark-5 border-t lg:border-t-0 pt-5 lg:pt-0">
+                    <div class="font-medium text-center lg:text-left lg:mt-3">Visitor Details</div>
+                    <div class="flex flex-col justify-center items-center lg:items-start mt-4">
+                        <div class="truncate sm:whitespace-normal flex items-center"> <i data-feather="mail" class="w-4 h-4 mr-2"></i> <span th:text="${visitLog.getVisitor().getEmail()}"></span> </div>
+                        <div class="truncate sm:whitespace-normal flex items-center mt-3"> <i data-feather="phone" class="w-4 h-4 mr-2"></i> <span th:text="${visitLog.getVisitor().getPhoneNo()}"></span> </div>
+                        <div class="truncate sm:whitespace-normal flex items-center mt-3"> <i data-feather="message-circle" class="w-4 h-4 mr-2"></i> <span th:text="${visitLog.getPurpose()}"></span> </div>
+                        <div class="truncate sm:whitespace-normal flex items-center mt-3">
+                            <i data-feather="calendar" class="w-4 h-4 mr-2"></i>
+                            <span th:text="${visitLog.getVisitDate()} +' - '+ ${visitLog.getVisitUntil()}"></span>
+                        </div>   <div class="truncate sm:whitespace-normal flex items-center mt-3">
+                            <i data-feather="clock" class="w-4 h-4 mr-2"></i>
+                            <span th:text="${visitLog.getStartTime()} +' - '+ ${visitLog.getEndTime()}"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-6 lg:mt-0 flex-1 flex items-center justify-center px-5 border-t lg:border-0 border-gray-200 dark:border-dark-5 pt-5 lg:pt-0">
+                    <div class="text-center rounded-md w-20 py-3">
+                        <div class="font-medium text-theme-1 dark:text-theme-10 text-xl"><span th:text="${visitLog.getAccompaniedBy()}"></span></div>
+                        <div class="text-gray-600"><span><i data-feather="users" class="w-4 h-4 mr-2"></i></span></div>
+                    </div>
+                    <div class="text-center rounded-md w-20 py-3">
+                        <div class="font-medium text-theme-1 dark:text-theme-10 text-xl"><span th:text="${visitLog.getRepeatDays().size()}"></span></div>
+                        <div class="text-gray-600"><span><i data-feather="repeat" class="w-4 h-4 mr-2"></i></span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="nav nav-tabs flex-col sm:flex-row justify-center lg:justify-start" role="tablist">
+                <a id="profile-tab" data-toggle="tab" data-target="#profile" href="javascript:;" class="py-4 sm:mr-8 flex items-center active" role="tab" aria-controls="profile" aria-selected="true"> <i class="w-4 h-4 mr-2" data-feather="lock"></i> <span class="text-theme-12 block" th:text="${visitLog.getCheckInStatus().name()}">Profile</span> </a>
+                <a id="account-tab" data-toggle="tab" data-target="#account" href="javascript:;" class="py-4 sm:mr-8 flex items-center" role="tab" aria-selected="false"> <i class="w-4 h-4 mr-2" data-feather="send"></i> <span class="text-theme-9 block">NOTIFY</span> </a>
+                <a id="change-password-tab" data-toggle="tab" data-target="#change-password" href="javascript:;" class="py-4 sm:mr-8 flex items-center" role="tab" aria-selected="false"> <i class="w-4 h-4 mr-2" data-feather="lock"></i> <span class="text-theme-6 block">CANCEL</span> </a>
+
+            </div>
+        </div>
+        <!-- END: Profile Info -->
+
+    </div>
+</div>
+<div data-url="dark-theme-coming-soon.html" class="dark-mode-switcher cursor-pointer shadow-md fixed bottom-0 right-0 box dark:bg-dark-2 border rounded-full w-40 h-12 flex items-center justify-center z-50 mb-10 mr-10">
+    <div class="mr-4 text-gray-700 dark:text-gray-300">Dark Mode</div>
+    <div class="dark-mode-switcher__toggle border"></div>
+</div>
+<script>
+    // Add active class to the menu item selected
+    document.getElementById("visit-menu").classList.add("side-menu--active");
+    //document.getElementById("dashboard-sub-menu").classList.add("side-menu--active");
+</script>
+<script th:src="@{/js/app.js}"></script>
+
+</body>
+</html>

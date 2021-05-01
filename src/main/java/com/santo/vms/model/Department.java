@@ -1,5 +1,6 @@
 package com.santo.vms.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.santo.vms.utilities.enums.EntityStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,6 +33,7 @@ public class Department {
 
     private String status;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "department", targetEntity = Employee.class)
     private List<Employee> employees;
 
@@ -44,4 +46,12 @@ public class Department {
 
     private OffsetDateTime dateCreated;
 
+    @Override
+    public String toString() {
+        return "Department{" +
+                "id='" + id + '\'' +
+                ", code='" + code + '\'' +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

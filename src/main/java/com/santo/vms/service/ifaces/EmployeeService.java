@@ -10,4 +10,5 @@ public interface EmployeeService {
     Employee addEmployee(EmployeeDTO employeeDTO);
     Optional<Employee> findEmployeeById(String id);
     List<Employee> getAllEmployees();
+    long getEmployeeCount();
 }

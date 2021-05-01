@@ -19,15 +19,40 @@ import java.time.OffsetDateTime;
 public class Visitor {
     @Id
     private String id;
+
     private String name;
+
     private String surname;
+
     private String nationalId;
+
     private LocalDate dob;
+
     private String gender;
+
     private String phoneNo;
+
     private String email;
+
     private String status;
+
     private String signature;
+
+    private String organization;
+
+    private String nationality;
+
+    private String address;
+
+    private String city;
+
+    private String country;
+
+    //Set this value to true to blacklist a visitor
+    private boolean blacklist;
+
+    @OneToOne
+    private VisitLog visit;
 
     @Version
     @Column
@@ -37,4 +62,20 @@ public class Visitor {
     private EntityStatus entityStatus;
 
     private OffsetDateTime dateCreated;
+
+    @Override
+    public String toString() {
+        return "Visitor{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", nationalId='" + nationalId + '\'' +
+                ", gender='" + gender + '\'' +
+                ", phoneNo='" + phoneNo + '\'' +
+                ", email='" + email + '\'' +
+                ", status='" + status + '\'' +
+                ", city='" + city + '\'' +
+                ", blacklist=" + blacklist +
+                '}';
+    }
 }
