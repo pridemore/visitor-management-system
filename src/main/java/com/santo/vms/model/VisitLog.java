@@ -62,6 +62,9 @@ public class VisitLog {
 
     private int accompaniedBy;
 
+    @OneToOne
+    private Notification notification;
+
     @Version
     @Column
     protected Long entityVersion;

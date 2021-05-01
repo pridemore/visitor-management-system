@@ -15,10 +15,11 @@ import javax.persistence.*;
 @Table
 public class Notification {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
-    private Long notificationId;
+    private String id;
     private String message;
-    private String visitId;
+
+    @OneToOne(mappedBy = "notification", targetEntity = VisitLog.class)
+    private VisitLog visitLog;
+
     private String status;
 }

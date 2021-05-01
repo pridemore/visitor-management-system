@@ -50,6 +50,9 @@ public class HomeController {
 
         final long overdueCheckOutCount = visitorService.getOverdueCheckOutCount();
         model.addAttribute("overdueCheckOuts",overdueCheckOutCount );
+        model.addAttribute("femaleCount",10 );
+        model.addAttribute("maleCount",20 );
+
         return "dashboard";
     }
 

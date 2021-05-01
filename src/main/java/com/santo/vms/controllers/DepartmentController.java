@@ -85,6 +85,7 @@ public class DepartmentController {
         model.addAttribute("title", "VMS - Assign Employee");
         model.addAttribute("breadCrumbLeft", "Application");
         model.addAttribute("breadCrumbRight", "Departments");
+
         Optional<Department> optionalDepartment = departmentService.findDepartmentById(id);
         model.addAttribute("department", optionalDepartment.get());
         List<Employee> employees = employeeService.getAllEmployees();
@@ -100,5 +101,14 @@ public class DepartmentController {
         Department department = departmentService.assignEmployees(departmentAssignmentDTO);
 
         return "redirect:/departments/details/"+department.getId();
+    }
+
+    @GetMapping("/edit")
+    public String showEditDepartmentPage(Model model){
+        //Attributes required for every page inheriting from general.html
+        model.addAttribute("title", "VMS - Edit Department");
+        model.addAttribute("breadCrumbLeft", "Application");
+        model.addAttribute("breadCrumbRight", "Departments");
+        return "departments/edit_department";
     }
 }
