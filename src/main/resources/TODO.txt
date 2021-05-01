@@ -1,0 +1,20 @@
+Repository Layer -> Notification, Role, User, Account
+Service Layer -> Notification, Role, User, Account
+                CRUD-> Notification, Role, User, Account
+                !!DELETE -> set EntityStatus to DELETED!!!
+                Edit and Delete-> Department, Employee, Visitor
+                (Need to do checks eg you cant delete department with employees still assigned)
+
+Processes -> Check Out, Approve Check In (Simply setting CheckInStatus to CHECKEDIN and update check in time to Now())
+    -> Create UserProfile from employee with default password "password"
+    -> PasswordEncryption Service
+
+Dashboard Statistics-->
+
+        //Map<String, Long> employeeCountByGender
+        model.addAttribute("femaleCount",10 );
+        model.addAttribute("maleCount",20 );
+
+        Visitors Report
+        //Map<String, Long> visitCountByCheckInStatus
+

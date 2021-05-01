@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class HomeController {
     @Autowired
     EmployeeService employeeService;
+
     @Autowired
     VisitorService visitorService;
 
@@ -50,6 +51,8 @@ public class HomeController {
 
         final long overdueCheckOutCount = visitorService.getOverdueCheckOutCount();
         model.addAttribute("overdueCheckOuts",overdueCheckOutCount );
+
+        //Map<String, Long>
         model.addAttribute("femaleCount",10 );
         model.addAttribute("maleCount",20 );
 

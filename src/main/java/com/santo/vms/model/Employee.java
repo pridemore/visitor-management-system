@@ -64,6 +64,9 @@ public class Employee {
     @OneToOne
     private VisitLog visit;
 
+    @OneToOne
+    User user;
+
     @Version
     @Column
     protected Long entityVersion;
