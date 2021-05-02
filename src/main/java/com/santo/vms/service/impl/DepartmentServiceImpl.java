@@ -77,4 +77,36 @@ public class DepartmentServiceImpl implements DepartmentService {
         });
         return savedDepartment;
     }
+
+    @Override
+    public Department updateDepartment(String id, DepartmentDTO departmentDTO) {
+
+        Optional<Department> department=departmentRepository.findById(id);
+
+//        if(!department.isPresent())
+//            return "";
+
+        department.get().setBuildingName(departmentDTO.getBuildingName());
+        department.get().setFloorLevel(departmentDTO.getFloorLevel());
+        department.get().setName(departmentDTO.getName());
+        department.get().setCode(departmentDTO.getCode());
+
+        Department updatedDepartment=departmentRepository.save(department.get());
+        return updatedDepartment;
+    }
+
+    @Override
+    public String deleteDepartment(String id) {
+
+        Optional<Department> department=departmentRepository.findById(id);
+
+       if(!department.isPresent())
+           return "Department not found";
+
+       department.get().setStatus("DELETED");
+
+       Department deletedDepartment=departmentRepository.save(department.get());
+
+        return "Department deleted successfully";
+    }
 }
