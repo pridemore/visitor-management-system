@@ -1,4 +1,7 @@
 package com.santo.vms.repository;
 
-public interface NotificationRepository {
+import com.santo.vms.model.Notification;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface NotificationRepository  extends JpaRepository<Notification, String> {
 }

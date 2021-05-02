@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.OffsetDateTime;
 
 @Data
 @NoArgsConstructor
@@ -22,4 +23,6 @@ public class Notification {
     private VisitLog visitLog;
 
     private String status;
+
+    private OffsetDateTime dateCreated;
 }
