@@ -60,4 +60,39 @@ public class EmployeeServiceImpl implements EmployeeService {
         final long count = employeeRepository.count();
         return count;
     }
+
+    @Override
+    public Employee updateEmployee(String id, EmployeeDTO employeeDTO) {
+
+        Optional<Employee> employee=employeeRepository.findById(id);
+
+//        if(!employee.isPresent())
+//            return "";
+
+        employee.get().setFirstName(employeeDTO.getFirstName());
+        employee.get().setSurname(employeeDTO.getSurname());
+        employee.get().setEmployeeNo(employeeDTO.getEmployeeNo());
+        employee.get().setEmail(employeeDTO.getEmail());
+        employee.get().setNationalId(employeeDTO.getNationalId());
+        employee.get().setPhoneNo(employeeDTO.getPhoneNo());
+        employee.get().setGender(Gender.valueOf(employeeDTO.getGender()));
+        employee.get().setDesignation(employeeDTO.getDesignation());
+
+        Employee updatedEmployee=employeeRepository.save(employee.get());
+        return updatedEmployee;
+    }
+
+    @Override
+    public String deleteEmployee(String id) {
+        Optional<Employee> employee=employeeRepository.findById(id);
+
+        if(!employee.isPresent())
+            return "Employee not found";
+
+        employee.get().setStatus("DELETED");
+
+        Employee deletedEmployee=employeeRepository.save(employee.get());
+
+        return "Employee deleted successfully";
+    }
 }
