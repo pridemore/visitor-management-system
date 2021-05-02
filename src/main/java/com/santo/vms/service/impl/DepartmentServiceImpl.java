@@ -103,6 +103,11 @@ public class DepartmentServiceImpl implements DepartmentService {
        if(!department.isPresent())
            return "Department not found";
 
+       List<Employee> employeesAssignedToDepartment=employeeRepository.findAllByDepartment();
+
+       if(!employeesAssignedToDepartment.isEmpty())
+           return "Department cannot be Deleted";
+
        department.get().setStatus("DELETED");
 
        Department deletedDepartment=departmentRepository.save(department.get());
