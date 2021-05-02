@@ -2,6 +2,7 @@ package com.santo.vms.service.impl;
 
 import antlr.StringUtils;
 import com.santo.vms.dto.DepartmentDTO;
+import com.santo.vms.dto.EditDepartmentDTO;
 import com.santo.vms.dto.EmployeeDepartmentAssignmentDTO;
 import com.santo.vms.model.Department;
 import com.santo.vms.model.Employee;
@@ -9,6 +10,7 @@ import com.santo.vms.repository.DepartmentRepository;
 import com.santo.vms.repository.EmployeeRepository;
 import com.santo.vms.service.ifaces.DepartmentService;
 import com.santo.vms.utilities.enums.EntityStatus;
+import com.santo.vms.utilities.enums.SystemConstants;
 import com.santo.vms.utilities.util.GenerateKey;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,39 +81,46 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Department updateDepartment(String id, DepartmentDTO departmentDTO) {
+    public String updateDepartment(EditDepartmentDTO departmentDTO) {
 
-        Optional<Department> department=departmentRepository.findById(id);
+        // Retrieve the Department from the DB
+        Optional<Department> optionalDepartment = departmentRepository.findById(departmentDTO.getEditId());
 
-//        if(!department.isPresent())
-//            return "";
+        final String updateStatus = optionalDepartment.map(department -> {
+            department.setBuildingName(departmentDTO.getBuildingNameEdit());
+            department.setFloorLevel(departmentDTO.getFloorLevelEdit());
+            department.setName(departmentDTO.getNameEdit());
+            department.setCode(departmentDTO.getCodeEdit());
+            departmentRepository.save(department);
+            return SystemConstants.UPDATED.getMessage();
+        }).orElse(SystemConstants.NOT_FOUND.getMessage());
+        log.info("UPDATE STATUS: {}", updateStatus);
+        return updateStatus;
 
-        department.get().setBuildingName(departmentDTO.getBuildingName());
-        department.get().setFloorLevel(departmentDTO.getFloorLevel());
-        department.get().setName(departmentDTO.getName());
-        department.get().setCode(departmentDTO.getCode());
-
-        Department updatedDepartment=departmentRepository.save(department.get());
-        return updatedDepartment;
     }
+
 
     @Override
     public String deleteDepartment(String id) {
 
-        Optional<Department> department=departmentRepository.findById(id);
+        Optional<Department> optionalDepartment = departmentRepository.findById(id);
 
-       if(!department.isPresent())
-           return "Department not found";
+        final String status = optionalDepartment.map(department -> {
+            //Check if there are employees assigned to the department
+            if (!department.checkEmployeeAssignment()) {
+                return "Department cannot be deleted, employees still assigned to the department";
+            }
+            // Proceed to delete the entity (ie soft delete)
+            department.setStatus(EntityStatus.DELETED.name());
+            department.setEntityStatus(EntityStatus.DELETED);
+            departmentRepository.save(department);
 
-       List<Employee> employeesAssignedToDepartment=employeeRepository.findAllByDepartment(department.get().getId());
+            return SystemConstants.DELETED.getMessage();
+        }).orElse(SystemConstants.NOT_FOUND.getMessage());
 
-       if(!employeesAssignedToDepartment.isEmpty())
-           return "Department cannot be Deleted";
+        // This is not necessary because the employees are contained in the Department object as it owns the relationship!
+       //List<Employee> employeesAssignedToDepartment=employeeRepository.findAllByDepartment(optionalDepartment.get().getId());
 
-       department.get().setStatus("DELETED");
-
-       Department deletedDepartment=departmentRepository.save(department.get());
-
-        return "Department deleted successfully";
+        return status;
     }
 }

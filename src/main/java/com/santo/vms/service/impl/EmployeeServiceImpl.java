@@ -6,6 +6,7 @@ import com.santo.vms.dto.EmployeeDTO;
 import com.santo.vms.repository.EmployeeRepository;
 import com.santo.vms.service.ifaces.EmployeeService;
 import com.santo.vms.utilities.enums.EntityStatus;
+import com.santo.vms.utilities.enums.SystemConstants;
 import com.santo.vms.utilities.util.GenerateKey;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,15 +85,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public String deleteEmployee(String id) {
-        Optional<Employee> employee=employeeRepository.findById(id);
+        Optional<Employee> optionalEmployee = employeeRepository.findById(id);
 
-        if(!employee.isPresent())
-            return "Employee not found";
+        final String status = optionalEmployee.map(employee -> {
+            // Proceed to delete the entity (ie soft delete)
+            employee.setStatus(EntityStatus.DELETED.name());
+            employee.setEntityStatus(EntityStatus.DELETED);
+            employeeRepository.save(employee);
+            return SystemConstants.DELETED.getMessage();
+        }).orElse(SystemConstants.NOT_FOUND.getMessage());
 
-        employee.get().setStatus("DELETED");
-
-        Employee deletedEmployee=employeeRepository.save(employee.get());
-
-        return "Employee deleted successfully";
+        return status;
     }
 }

@@ -46,6 +46,10 @@ public class Department {
 
     private OffsetDateTime dateCreated;
 
+    private static boolean checkEmployeeAttachmentHelper(Employee employee) {
+        return employee.getEntityStatus().equals(EntityStatus.ACTIVE);
+    }
+
     @Override
     public String toString() {
         return "Department{" +
@@ -53,5 +57,10 @@ public class Department {
                 ", code='" + code + '\'' +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    public boolean checkEmployeeAssignment(){
+        return this.getEmployees().stream()
+                .anyMatch(Department::checkEmployeeAttachmentHelper);
     }
 }

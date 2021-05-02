@@ -15,7 +15,7 @@
         </div>
 
         <h2 class="intro-y text-lg font-medium mt-10">
-            Department Details
+            Department Details <span id="greeting"></span>
         </h2>
         <div class="grid grid-cols-12 gap-6 mt-5">
             <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
@@ -45,7 +45,8 @@
                             <a class="dropdown-toggle w-5 h-5 block" href="javascript:;" aria-expanded="false"> <i data-feather="more-horizontal" class="w-5 h-5 text-gray-600 dark:text-gray-300"></i> </a>
                             <div class="dropdown-menu w-40">
                                 <div class="dropdown-menu__content box dark:bg-dark-1 p-2">
-                                    <a href="" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"> <i data-feather="edit-2" class="w-4 h-4 mr-2"></i> Edit </a>
+                                    <a th:id="${department.getId()}" href="javascript:;" data-toggle="modal" data-target="#update-department-modal" onclick="populateFormDetails(this.id)"
+                                       class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"> <i data-feather="edit-2" class="w-4 h-4 mr-2"></i> Edit </a>
                                     <a href="" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"> <i data-feather="trash" class="w-4 h-4 mr-2"></i> Delete </a>
                                 </div>
                             </div>
@@ -66,10 +67,10 @@
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <td class="border-b dark:border-dark-5" th:text="${department.getCode()}"></td>
-                                        <td class="border-b dark:border-dark-5" th:text="${department.getName()}"></td>
-                                        <td class="border-b dark:border-dark-5" th:text="${department.getBuildingName()}"></td>
-                                        <td class="border-b dark:border-dark-5" th:text="${department.getFloorLevel()}"></td>
+                                        <td class="border-b dark:border-dark-5" th:id="'code'+${department.getId()}" th:text="${department.getCode()}"></td>
+                                        <td class="border-b dark:border-dark-5" th:id="'name'+${department.getId()}" th:text="${department.getName()}"></td>
+                                        <td class="border-b dark:border-dark-5" th:id="'buildingName'+${department.getId()}" th:text="${department.getBuildingName()}"></td>
+                                        <td class="border-b dark:border-dark-5" th:id="'floorLevel'+${department.getId()}" th:text="${department.getFloorLevel()}"></td>
                                         <td class="border-b dark:border-dark-5" th:text="${department.getStatus()}"></td>
                                     </tr>
                                     </tbody>
@@ -123,10 +124,156 @@
     <div class="mr-4 text-gray-700 dark:text-gray-300">Dark Mode</div>
     <div class="dark-mode-switcher__toggle border"></div>
 </div>
+<!-- BEGIN: Modal Content -->
+<div id="update-department-modal" class="modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- BEGIN: Modal Header -->
+            <div class="modal-header"><h2 class="font-medium text-base mr-auto">Edit Department Details</h2>
+                <div class="dropdown sm:hidden"><a class="dropdown-toggle w-5 h-5 block" href="javascript:;"
+                                                   aria-expanded="false"> <i data-feather="more-horizontal"
+                                                                             class="w-5 h-5 text-gray-600 dark:text-gray-600"></i>
+                </a>
+                    <div class="dropdown-menu w-40">
+                        <div class="dropdown-menu__content box dark:bg-dark-1 p-2"><a href="javascript:;"
+                                                                                      class="flex items-center p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
+                            <i data-feather="file" class="w-4 h-4 mr-2"></i> </a></div>
+                    </div>
+                </div>
+            </div> <!-- END: Modal Header -->
+            <!-- BEGIN: Modal Body -->
+            <form  method="post" name="editDepartmentDetailForm" id="editDepartmentDetailForm" th:action="@{/departments/edit/}" th:object="${dto}" >
+                <input type="hidden" class="form-control" id="editId" name="editId" required>
+            <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+                <div class="col-span-12 sm:col-span-6">
+                    <label for="codeEdit" class="form-label">Code</label>
+                    <input id="codeEdit" name="codeEdit" type="text" class="form-control" placeholder="example@gmail.com">
+                </div>
+                <div class="col-span-12 sm:col-span-6">
+                    <label for="nameEdit" class="form-label">Department Name</label>
+                    <input id="nameEdit" name="nameEdit" type="text" class="form-control" placeholder="example@gmail.com">
+                </div>
+                <div class="col-span-12 sm:col-span-6">
+                    <label for="buildingNameEdit" class="form-label">Building Name</label>
+                    <input id="buildingNameEdit" name="buildingNameEdit" type="text" class="form-control" placeholder="Important Meeting">
+                </div>
+                <div class="col-span-12 sm:col-span-6">
+                    <label for="floorLevelEdit" class="form-label">Floor Level</label>
+                    <input id="floorLevelEdit"  name="floorLevelEdit" type="text" class="form-control" placeholder="Job, Work, Documentation">
+                </div>
+            </div> <!-- END: Modal Body -->
+            <!-- BEGIN: Modal Footer -->
+            <div class="modal-footer text-right">
+                <button type="button" data-dismiss="modal" class="btn btn-outline-secondary w-20 mr-1">Cancel</button>
+                <button type="submit" class="btn btn-primary w-20" onclick="edit_department_details(this.id)"
+                        th:id="'EditBtn'+${department.getId()}">Update
+                </button>
+            </div>
+            </form>
+            <!-- END: Modal Footer -->
+        </div>
+    </div>
+</div>
+<!-- END: Modal Content -->
+<!--<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous"></script>-->
+
+<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
 <script>
     // Add active class to the menu item selected
     document.getElementById("department-menu").classList.add("side-menu--active");
     document.getElementById("department-add-menu").classList.add("side-menu--active");
+</script>
+<script>
+
+</script>
+<script>
+
+    function populateFormDetails(formId) {
+        //Getting the department details from the tr view using Javascript
+        /*var code = document.getElementById("code"+formId).innerText;
+        var name = document.getElementById("name"+formId).innerText;
+        var buildingName = document.getElementById("buildingName"+formId).innerText;
+        var floorLevel = document.getElementById("floorLevel"+formId).innerText;*/
+
+        var code = $("#code"+formId).text();
+        var name = $("#name"+formId).text();
+        var buildingName = $("#buildingName"+formId).text();
+        var floorLevel =$("#floorLevel"+formId).text();
+        console.log('Department Name: ->' + name);
+
+        //Set the values in the modal
+        /*document.getElementById("codeEdit").value = code;
+        document.getElementById("nameEdit").value = name;
+        document.getElementById("buildingNameEdit").value = buildingName;
+        document.getElementById("floorLevelEdit").value = floorLevel;*/
+
+        $("#editId").val(formId);
+        $("#codeEdit").val(code);
+        $("#nameEdit").val(name);
+        $("#buildingNameEdit").val(buildingName);
+        $("#floorLevelEdit").val(floorLevel);
+    }
+
+
+    function edit_department_details(final_id) {
+        var id = final_id.replace(/EditBtn/g, '');
+        console.log('The html department id is ' + final_id);
+        console.log('department id ' + id);
+
+        var code =  $("#codeEdit").val();
+        var name = $("#nameEdit").val();
+        var buildingName = $("#buildingNameEdit").val();
+        var floorLevel = $("#floorLevelEdit").val();
+        console.log('My form values are :' + code + '-' + name + '-' + buildingName + '-' + floorLevel);
+
+
+        $('#editDepartmentDetailForm').on('submit', function(event){
+
+            var self = this;
+            var form = $(this);
+
+
+            if (form.data('requestRunning')) {
+                return;
+            }
+
+            form.data('requestRunning', true);
+            event.preventDefault();
+            $.ajax({
+                url: form.attr("/vms/departments/edit"),
+                type: form.attr("post"),
+                data: form.serialize(),
+                success: function(data){
+
+                    console.log(data.responseCode);
+                    console.log(data.narrative);
+                    if(data.responseCode === '00'){
+                        self.submit();
+                    }else{
+                        //errorMsg.text(result.login.FAILURE).addClass("alert alert-danger");
+                        alert("An error occurred, please try again");
+                        console.log(data.responseCode);
+                        console.log(data.narrative);
+                    }
+                    $('#update-department-modal').attr("data-dismiss", "modal");
+
+                },
+                error: function(data){
+                    console.log(error);
+                },
+                complete: function (e) {
+                    form.data('requestRunning', false);
+                }
+
+            });
+
+        });
+
+
+
+    }
 </script>
 <script th:src="@{/js/app.js}"></script>
 
