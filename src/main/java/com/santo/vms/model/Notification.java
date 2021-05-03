@@ -1,5 +1,6 @@
 package com.santo.vms.model;
 
+import com.santo.vms.utilities.enums.EntityStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,6 +24,9 @@ public class Notification {
     private VisitLog visitLog;
 
     private String status;
+
+
+    private EntityStatus entityStatus;
 
     private OffsetDateTime dateCreated;
 }

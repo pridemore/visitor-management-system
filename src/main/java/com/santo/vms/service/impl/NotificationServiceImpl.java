@@ -1,18 +1,18 @@
 package com.santo.vms.service.impl;
 
 import com.santo.vms.dto.NotificationDTO;
-import com.santo.vms.model.Employee;
 import com.santo.vms.model.Notification;
 import com.santo.vms.model.VisitLog;
 import com.santo.vms.repository.NotificationRepository;
 import com.santo.vms.repository.VisitLogRepository;
 import com.santo.vms.service.ifaces.NotificationService;
 import com.santo.vms.utilities.enums.EntityStatus;
+import com.santo.vms.utilities.enums.SystemConstants;
 import com.santo.vms.utilities.util.GenerateKey;
-import org.jboss.jdeparser.FormatPreferences;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.OffsetDateTime;
+import java.util.List;
 import java.util.Optional;
 
 public class NotificationServiceImpl implements NotificationService {
@@ -25,13 +25,13 @@ public class NotificationServiceImpl implements NotificationService {
     @Override
     public Notification createNotification(NotificationDTO notificationDTO) {
 
-        Optional<VisitLog> visitLog=visitLogRepository.findById(notificationDTO.getVisitLog().getId());
+        Optional<VisitLog> visitLog = visitLogRepository.findById(notificationDTO.getVisitLog().getId());
 
 //        if(!visitLog.isPresent())
 //            return ""
 
         Notification notification = new Notification();
-
+        notification.setMessage(notificationDTO.getMessage());
         notification.setStatus("ACTIVE");
         notification.setStatus(notificationDTO.getMessage());
         notification.setVisitLog(notificationDTO.getVisitLog());
@@ -48,6 +48,37 @@ public class NotificationServiceImpl implements NotificationService {
         return optionalNotification;
     }
 
+    @Override
+    public Notification updateNotification(String id, NotificationDTO notificationDTO) {
 
+        Optional<Notification> notification = notificationRepository.findById(id);
+
+
+        notification.get().setMessage(notificationDTO.getMessage());
+        notification.get().setVisitLog(notificationDTO.getVisitLog());
+        Notification updatedNotification = notificationRepository.save(notification.get());
+
+        return updatedNotification;
+    }
+
+
+    @Override
+    public List<Notification> getAllUsers() {
+        return notificationRepository.findAll();
+    }
+
+    @Override
+    public String deleteUser(String id) {
+        Optional<Notification> optionalNotification = notificationRepository.findById(id);
+
+        if (!optionalNotification.isPresent())
+            return SystemConstants.NOT_FOUND.getMessage();
+
+
+        optionalNotification.get().setStatus(EntityStatus.DELETED.name());
+        optionalNotification.get().setEntityStatus(EntityStatus.DELETED);
+        notificationRepository.save(optionalNotification.get());
+        return SystemConstants.DELETED.getMessage();
+    }
 
 }
