@@ -26,4 +26,6 @@ public interface VisitorService {
     long getOverdueCheckOutCount();
 
     String employeeCheckInVisitor(String id);
+
+    String employeeCheckOutVisitor(String id);
 }

@@ -121,4 +121,18 @@ public class VisitorServiceImpl implements VisitorService {
 
         return "Visitor Checked In";
     }
+
+    @Override
+    public String employeeCheckOutVisitor(String id) {
+        Optional<VisitLog> visitLog = visitLogRepository.findById(id);
+
+        if (!visitLog.isPresent())
+            return "VisitLog not found";
+
+        visitLog.get().setCheckInStatus(CheckInStatus.CHECKED_OUT);
+        visitLog.get().setCheckInTime(OffsetDateTime.now());
+        visitLogRepository.save(visitLog.get());
+
+        return "Visitor Checked Out";
+    }
 }
