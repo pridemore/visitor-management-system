@@ -24,4 +24,6 @@ public interface VisitorService {
     long getRegisteredVisitorsCount();
 
     long getOverdueCheckOutCount();
+
+    String employeeCheckInVisitor(String id);
 }

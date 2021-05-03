@@ -3,11 +3,11 @@ package com.santo.vms.service.impl;
 import com.santo.vms.dto.VisitorCheckInDTO;
 import com.santo.vms.dto.VisitorDTO;
 import com.santo.vms.enums.CheckInStatus;
-import com.santo.vms.model.Visitor;
 import com.santo.vms.model.VisitLog;
+import com.santo.vms.model.Visitor;
 import com.santo.vms.repository.EmployeeRepository;
-import com.santo.vms.repository.VisitorRepository;
 import com.santo.vms.repository.VisitLogRepository;
+import com.santo.vms.repository.VisitorRepository;
 import com.santo.vms.service.ifaces.VisitorService;
 import com.santo.vms.utilities.enums.EntityStatus;
 import com.santo.vms.utilities.util.GenerateKey;
@@ -105,5 +105,19 @@ public class VisitorServiceImpl implements VisitorService {
     @Override
     public long getOverdueCheckOutCount() {
         return visitLogRepository.countVisitLogByCheckInStatus(CheckInStatus.OVERDUE);
+    }
+
+    @Override
+    public String employeeCheckInVisitor(String id) {
+
+        Optional<VisitLog> visitLog = visitLogRepository.findById(id);
+
+        if (!visitLog.isPresent())
+            return "VisitLog not found";
+
+        visitLog.get().setCheckInStatus(CheckInStatus.CHECKED_IN);
+        VisitLog checkedInVisitLog = visitLogRepository.save(visitLog.get());
+
+        return "Visitor Checked In";
     }
 }

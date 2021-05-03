@@ -1,6 +1,6 @@
-Repository Layer -> Notification, Role, User, Account
-Service Layer -> Notification, Role, User, Account
-                CRUD-> Notification, Role, User, Account
+Repository Layer -> Notification, User, Account
+Service Layer -> Notification,User, Account
+                CRUD-> Notification, User, Account
                 !!DELETE -> set EntityStatus to DELETED!!!
                 Edit and Delete-> Department, Employee, Visitor
                 (Need to do checks eg you cant delete department with employees still assigned)
