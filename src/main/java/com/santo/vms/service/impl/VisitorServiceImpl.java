@@ -15,8 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
+import java.sql.Timestamp;
+import java.time.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -116,7 +116,8 @@ public class VisitorServiceImpl implements VisitorService {
             return "VisitLog not found";
 
         visitLog.get().setCheckInStatus(CheckInStatus.CHECKED_IN);
-        VisitLog checkedInVisitLog = visitLogRepository.save(visitLog.get());
+        visitLog.get().setCheckInTime(OffsetDateTime.now());
+        visitLogRepository.save(visitLog.get());
 
         return "Visitor Checked In";
     }
