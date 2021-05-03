@@ -1,12 +1,14 @@
 package com.santo.vms.model;
 
 import com.santo.vms.enums.Role;
+import com.santo.vms.utilities.enums.EntityStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.OffsetDateTime;
 
 @Data
 @NoArgsConstructor
@@ -30,4 +32,8 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    private EntityStatus entityStatus;
+
+    private OffsetDateTime dateCreated;
 }

@@ -1,6 +1,7 @@
 package com.santo.vms.service.impl;
 
 import com.santo.vms.dto.NotificationDTO;
+import com.santo.vms.model.Employee;
 import com.santo.vms.model.Notification;
 import com.santo.vms.model.VisitLog;
 import com.santo.vms.repository.NotificationRepository;
@@ -40,6 +41,13 @@ public class NotificationServiceImpl implements NotificationService {
 
         return savedNotification;
     }
+
+    @Override
+    public Optional<Notification> findNotificationById(String id) {
+        Optional<Notification> optionalNotification = notificationRepository.findById(id);
+        return optionalNotification;
+    }
+
 
 
 }

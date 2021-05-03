@@ -25,6 +25,8 @@ public class Account {
     @Column(nullable = false)
     private String password;
 
+    private String status;
+
     @Version
     @Column
     protected Long entityVersion;
