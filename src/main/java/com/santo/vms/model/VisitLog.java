@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -72,7 +74,11 @@ public class VisitLog {
     @Enumerated(EnumType.STRING)
     private EntityStatus entityStatus;
 
+    @CreationTimestamp
     private OffsetDateTime dateCreated;
+
+    @UpdateTimestamp
+    protected OffsetDateTime lastUpdated;
 
     @Override
     public String toString() {

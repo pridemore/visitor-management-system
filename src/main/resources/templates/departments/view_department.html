@@ -181,12 +181,9 @@
 
 <script th:src="@{/js/jquery-3.6.0.min.js}"></script>
 <script>
-    // Add active class to the menu item selected
-    document.getElementById("department-menu").classList.add("side-menu--active");
-    document.getElementById("department-add-menu").classList.add("side-menu--active");
-</script>
-<script>
-
+    $("#department-top-menu").addClass("side-menu__sub-open");
+    $("#department-menu").addClass("side-menu--active");
+    $("#department-view-menu").addClass("side-menu--active");
 </script>
 <script>
 
@@ -255,7 +252,7 @@
                         //errorMsg.text(result.login.FAILURE).addClass("alert alert-danger");
                         alert("An error occurred, please try again");
                         console.log(data.responseCode);
-                        console.log(data.narrative);
+                        console.log(data.narrative);hn
                     }
                     $('#update-department-modal').attr("data-dismiss", "modal");
 

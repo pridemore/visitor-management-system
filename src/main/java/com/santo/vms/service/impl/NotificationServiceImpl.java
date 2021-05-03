@@ -56,6 +56,7 @@ public class NotificationServiceImpl implements NotificationService {
 
         notification.get().setMessage(notificationDTO.getMessage());
         notification.get().setVisitLog(notificationDTO.getVisitLog());
+        notification.get().setLastUpdated(OffsetDateTime.now());
         Notification updatedNotification = notificationRepository.save(notification.get());
 
         return updatedNotification;

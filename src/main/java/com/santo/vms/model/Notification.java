@@ -1,10 +1,15 @@
 package com.santo.vms.model;
 
 import com.santo.vms.utilities.enums.EntityStatus;
+import com.santo.vms.utilities.enums.EntityStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;
@@ -25,8 +30,11 @@ public class Notification {
 
     private String status;
 
-
     private EntityStatus entityStatus;
 
+    @CreationTimestamp
     private OffsetDateTime dateCreated;
+
+    @UpdateTimestamp
+    protected OffsetDateTime lastUpdated;
 }

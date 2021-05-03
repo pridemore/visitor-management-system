@@ -43,6 +43,7 @@ public class UserServiceImpl implements UserService {
         user.get().setPassword(userDTO.getPassword());
         user.get().setEmployee(userDTO.getEmployee());
         user.get().setRole(userDTO.getRole());
+        user.get().setLastUpdated(OffsetDateTime.now());
         User updatedUser = userRepository.save(user.get());
 
         return updatedUser;

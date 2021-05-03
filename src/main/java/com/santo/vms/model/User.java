@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;
@@ -36,4 +37,7 @@ public class User {
     private EntityStatus entityStatus;
 
     private OffsetDateTime dateCreated;
+
+    @UpdateTimestamp
+    protected OffsetDateTime lastUpdated;
 }

@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;
@@ -40,11 +42,15 @@ public class Department {
     @Version
     @Column
     protected Long entityVersion;
-    @Enumerated(EnumType.STRING)
 
+    @Enumerated(EnumType.STRING)
     private EntityStatus entityStatus;
 
+    @CreationTimestamp
     private OffsetDateTime dateCreated;
+
+    @UpdateTimestamp
+    protected OffsetDateTime lastUpdated;
 
     private static boolean checkEmployeeAttachmentHelper(Employee employee) {
         return employee.getEntityStatus().equals(EntityStatus.ACTIVE);

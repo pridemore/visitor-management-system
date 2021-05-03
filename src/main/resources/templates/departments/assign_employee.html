@@ -58,10 +58,11 @@
     <div class="mr-4 text-gray-700 dark:text-gray-300">Dark Mode</div>
     <div class="dark-mode-switcher__toggle border"></div>
 </div>
+<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
 <script>
-    // Add active class to the menu item selected
-    document.getElementById("dashboard-menu").classList.add("side-menu--active");
-    //document.getElementById("dashboard-sub-menu").classList.add("side-menu--active");
+    $("#department-top-menu").addClass("side-menu__sub-open");
+    $("#department-menu").addClass("side-menu--active");
+    $("#department-assign-menu").addClass("side-menu--active");
 </script>
 <script>
     document.getElementById('employee-assignment-submission').onclick = function() {
