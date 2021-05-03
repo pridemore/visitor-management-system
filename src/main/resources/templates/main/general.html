@@ -542,7 +542,7 @@
                         <div class="side-menu__sub-icon"> <i data-feather="chevron-down"></i> </div>
                     </div>
                 </a>
-                <ul class="">
+                <ul id="employee-top-menu" class="">
                     <li>
                         <a id="employee-add-menu" th:href="@{/employees/add}" class="side-menu">
                             <div class="side-menu__icon"> <i data-feather="activity"></i> </div>
@@ -550,7 +550,7 @@
                         </a>
                     </li>
                     <li>
-                        <a th:href="@{/employees/view}" class="side-menu">
+                        <a id="employee-view-menu" th:href="@{/employees/view}" class="side-menu">
                             <div class="side-menu__icon"> <i data-feather="activity"></i> </div>
                             <div class="side-menu__title"> View </div>
                         </a>
@@ -565,7 +565,7 @@
                         <div class="side-menu__sub-icon"> <i data-feather="chevron-down"></i> </div>
                     </div>
                 </a>
-                <ul class="">
+                <ul id="department-top-menu" class="">
                     <li>
                         <a id="department-add-menu" th:href="@{/departments/add}" class="side-menu">
                             <div class="side-menu__icon"> <i data-feather="activity"></i> </div>
@@ -573,13 +573,13 @@
                         </a>
                     </li>
                     <li>
-                        <a th:href="@{/departments/view}" class="side-menu">
+                        <a id="department-view-menu" th:href="@{/departments/view}" class="side-menu">
                             <div class="side-menu__icon"> <i data-feather="activity"></i> </div>
                             <div class="side-menu__title"> View Departments </div>
                         </a>
                     </li>
                     <li>
-                        <a th:href="@{/departments/assign}" class="side-menu">
+                        <a id="department-assign-menu" th:href="@{/departments/assign}" class="side-menu">
                             <div class="side-menu__icon"> <i data-feather="activity"></i> </div>
                             <div class="side-menu__title"> Assign Employees </div>
                         </a>
@@ -594,7 +594,7 @@
                         <div class="side-menu__sub-icon"> <i data-feather="chevron-down"></i> </div>
                     </div>
                 </a>
-                <ul class="">
+                <ul id="visitor-top-menu" class="">
                     <li>
                         <a id="visitor-add-menu" th:href="@{/visitors/add}" class="side-menu">
                             <div class="side-menu__icon"> <i data-feather="activity"></i> </div>
@@ -602,19 +602,19 @@
                         </a>
                     </li>
                     <li>
-                        <a th:href="@{/visitors/check-in}" class="side-menu">
+                        <a id="visitor-checkin-menu" th:href="@{/visitors/check-in}" class="side-menu">
                             <div class="side-menu__icon"> <i data-feather="activity"></i> </div>
                             <div class="side-menu__title"> Check In </div>
                         </a>
                     </li>
                     <li>
-                        <a th:href="@{/visitors/check-out}" class="side-menu">
+                        <a id="visitor-checkout-menu" th:href="@{/visitors/check-out}" class="side-menu">
                             <div class="side-menu__icon"> <i data-feather="activity"></i> </div>
                             <div class="side-menu__title"> Check Out </div>
                         </a>
                     </li>
                     <li>
-                        <a th:href="@{/visitors/view}" class="side-menu">
+                        <a id="visitor-view-menu" th:href="@{/visitors/view}" class="side-menu">
                             <div class="side-menu__icon"> <i data-feather="activity"></i> </div>
                             <div class="side-menu__title"> View Visitors</div>
                         </a>
